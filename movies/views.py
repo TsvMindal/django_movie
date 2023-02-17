@@ -1,3 +1,17 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from django.views.generic.base import View
 
-# Create your views here.
+from .models import Movie, Category, Actor, Genre, Rating, Reviews
+
+
+class MoviesView(ListView):
+    """Список фильмов"""
+    model = Movie
+    queryset = Movie.objects.filter(draft=False)
+
+
+class MovieDetailView(DetailView):
+    """Полное описание фильма"""
+    model = Movie
+    slug_field = "url"
