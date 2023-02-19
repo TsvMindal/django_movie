@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'ckeditor',
     'ckeditor_uploader',
     'movies',
+
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 ]
 
 ROOT_URLCONF = 'django_movie.urls'
@@ -73,6 +78,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_movie.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -114,6 +123,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = "/"
 
 
 # Static files (CSS, JavaScript, Images)
@@ -198,3 +209,5 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+SITE_ID = 1

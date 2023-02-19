@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Отзывы
+{% endblock title %}
+
+
+{% block content %}
+<h1 class="ml-4">Отзывы</h1>
+
+{% if sel_feed %}
+<form class="ml-4" method="post" action="{% url 'update' sel_feed.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="text2">Текст</label>
+        <input type="text" class="form-control" value="{{ sel_feed.text }}" id="text2" name="text" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="mb-4 btn btn-primary">Обновить</button>
+</form>
+{% else %}
+<form class="ml-4" method="post" action="{% url 'add_feedback' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="text">Текст</label>
+        <input type="text" class="form-control" id="text" name="text" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="mb-4 btn btn-primary">Отправить</button>
+</form>
+{% endif %}
+
+{% for feed in feed_list %}
+        <div class="ml-4 mb-2">
+            {{feed.user}} - {{feed.text}}
+            {% if user.id == feed.user.id %}
+            <a href="{% url 'edit' feed.id %}">Update</a>
+            <a href="{% url 'delete' feed.id %}">Delete</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

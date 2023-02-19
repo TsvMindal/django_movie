@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingStar, Reviews
+from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingStar, Reviews, Feedback
 
 
 class MovieAdminForm(forms.ModelForm):
@@ -150,6 +150,7 @@ class MovieShotsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(RatingStar)
+admin.site.register(Feedback)
 
 admin.site.site_title = "Django Movies"
 admin.site.site_header = "Django Movies"
