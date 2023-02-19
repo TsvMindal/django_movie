@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from datetime import date
 from django.urls import reverse
@@ -147,3 +148,15 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, max_length=100, on_delete=models.CASCADE)
+    text = models.TextField(verbose_name='Текст отзыва', blank=True)
+
+    def __str__(self):
+        return f'{self.user}'
+
+    class Meta:
+        verbose_name = 'Отзыв о сайте'
+        verbose_name_plural = 'Отзывы о сайте'

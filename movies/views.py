@@ -1,11 +1,14 @@
+
+
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 
 from .forms import ReviewForm, RatingForm
-from .models import Movie, Category, Actor, Genre, Rating, Reviews
+from .models import Movie, Category, Actor, Genre, Rating, Reviews, Feedback
 
 
 class GenreYear:
@@ -109,4 +112,46 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+
+def add_feedback(request):
+    if request.method == 'POST':
+        current_user = request.user
+        text = request.POST['text']
+        feed = Feedback(user=current_user, text=text)
+        feed.save()
+    else:
+        pass
+
+    feed_list = Feedback.objects.all()
+    context = {
+        'feed_list': feed_list
+    }
+    return render(request, 'pages/feedback.html', context)
+
+
+def delete(request, myid):
+    feed = Feedback.objects.get(id=myid)
+    feed.delete()
+    return redirect(add_feedback)
+
+
+def edit(request, myid):
+    sel_feed = Feedback.objects.get(id=myid)
+    feed_list = Feedback.objects.all()
+    context = {
+        'sel_feed': sel_feed,
+        'feed_list': feed_list
+    }
+    return render(request, 'pages/feedback.html', context)
+
+
+def update(request, myid):
+    feed = Feedback.objects.get(id=myid)
+    feed.text = request.POST['text']
+    feed.save()
+    return redirect('add_feedback')
+
+
+
 
