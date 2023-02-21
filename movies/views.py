@@ -1,5 +1,3 @@
-
-
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -112,6 +110,10 @@ class Search(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+
+def about(request):
+    return render(request, 'pages/about.html')
 
 
 def add_feedback(request):

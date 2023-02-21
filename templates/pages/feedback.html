@@ -33,8 +33,8 @@
         <div class="ml-4 mb-2">
             {{feed.user}} - {{feed.text}}
             {% if user.id == feed.user.id %}
-            <a href="{% url 'edit' feed.id %}">Update</a>
-            <a href="{% url 'delete' feed.id %}">Delete</a>
+            <a href="{% url 'edit' feed.id %}">Редактировать</a>
+            <a href="{% url 'delete' feed.id %}">Удалить</a>
             {% endif %}
         </div>
     {% endfor %}

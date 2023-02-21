@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
-from .views import add_feedback, delete, update, edit
+from .views import add_feedback, delete, update, edit, about
 
 urlpatterns = [
     path("", views.MoviesView.as_view(), name="main"),
+    path("about/", about, name="about"),
     path('add_feedback/', add_feedback, name="add_feedback"),
     path('delete/<int:myid>/', delete, name="delete"),
     path('edit/<int:myid>/', edit, name="edit"),
